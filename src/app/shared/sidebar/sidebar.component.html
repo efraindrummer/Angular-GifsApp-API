@@ -6,6 +6,11 @@
     <hr class="text-white">
 
     <div class="list-group list-reset">
-      <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
+      <a
+        *ngFor="let item of historial" 
+        href="#" 
+        class="list-group-item list-group-item-action">
+        {{item | titlecase}}
+      </a> <!-- Capiutalizacion con el pipe de titleCase sobhre las busquedas nuevsas que se esta recibiendo -->
     </div>
 </div>
