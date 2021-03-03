@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,11 +6,14 @@ import { Injectable } from '@angular/core';
 })
 export class GifsService {
 
+  private apiKey: string = 'D7VaU8pAQcw2qsjrtnsaAZTpZobLhJVI';
   private _historial: string[] = [];
 
   get historial(){
     return [...this._historial]; //se uso el spreadOperator para romper la referencia
   }
+
+  constructor(private http: HttpClient){}
 
   //funcion para recibir lo escrito y lo añana al primer valor de arreglo usando el unshift
   buscarGifs(query: string = '') {
@@ -21,6 +25,11 @@ export class GifsService {
       this._historial = this._historial.splice(0,10);
     }
     
-    console.log(this._historial);
+    this.http.get('https://api.giphy.com/v1/gifs/search?api_key=D7VaU8pAQcw2qsjrtnsaAZTpZobLhJVI&q=dragon ball z&limit=10')
+      .subscribe((resp: any) => {
+        console.log(resp.data);
+      })
   }
 }
+
+//api: D7VaU8pAQcw2qsjrtnsaAZTpZobLhJVI
