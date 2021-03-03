@@ -18,16 +18,10 @@ export class GifsService {
   }
 
   constructor(private http: HttpClient){
-
     //si la pagina de recarga debe de mantener el historial de la buscaqueda
     this._historial = JSON.parse(localStorage.getItem('historial')!) || [];
     this.resultados = JSON.parse(localStorage.getItem('resultados')!) || [];
     //almacenar la imagenes para que se cargue cuando se recarge el navegador web
-
-    /* if(localStorage.getItem('historial')){
-      this._historial = JSON.parse(localStorage.getItem('historial')!);
-    } */
-
   }
 
   //funcion para recibir lo escrito y lo añana al primer valor de arreglo usando el unshift
@@ -42,12 +36,8 @@ export class GifsService {
       localStorage.setItem('historial', JSON.stringify(this._historial));
     }
 
-    const params = new HttpParams()
-          .set('api_key', this.apiKey)
-          .set('limit', '10')
-          .set('q', query);
+    const params = new HttpParams().set('api_key', this.apiKey).set('limit', '10').set('q', query);
     
-    console.log(params.toString());
     
     this.http.get<SearchGifsResponse>(`${this.servicioUrl}/search`, { params })
       .subscribe((resp) => {
@@ -57,5 +47,3 @@ export class GifsService {
       });
   }
 }
-
-//api: D7VaU8pAQcw2qsjrtnsaAZTpZobLhJVI
